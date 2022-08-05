@@ -1,0 +1,111 @@
+:root {
+    --main-background: #38bdf8;
+    --secondary-background: white;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Mouse Memoirs', sans-serif;
+    color: white;
+    background: var(--main-background);
+    height: 100vh;
+    
+}
+
+/* Header  */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    
+}
+
+.header img {
+    height: 120px;
+    width: 140px
+}
+
+.header-text {
+    font-size: 120px;
+}
+
+/* Main content */
+
+.content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 10rem));
+    grid-template-rows: repeat(3, minmax(200px, 10rem));
+   
+    background-color: #0284c7;
+    
+}
+
+.square {
+display: flex;
+justify-content: center;
+align-items: center;
+border: 3px solid white;    
+font-size: 120px;
+
+}
+
+.functions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 20px;
+}
+
+.button {
+    background-color: #0284c7;
+    color: white;
+    width: 100px;
+    height: 30px;
+    border-radius: 12px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.functions h1 {
+    padding-top: 20px;
+    display: inline;
+    font-size: 60px;
+}
+
+.wins {
+    font-size: 40px;
+}
+
+.game:hover {
+    background:#059de9; 
+}
+
+#stop {
+    display: none;
+}
+
+.button:hover, .button:focus{
+    background: #0592d8;
+}
+
+#stop:hover, #stop:focus {
+background: red;
+}
+
+.gameWinner {
+    font-size: 50px;
+    color: rgb(235, 225, 225);
+}

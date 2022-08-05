@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Tic-Tac-Toe-Game.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="Tic-Tac-Toe-Game.png" alt=""> <div class="header-text">Tic Tac Toe</div>
+        </div>
+        <div class="content">
+                <div class="board">
+                    
+                </div>
+                <div class="functions">
+                    <div class="player">
+                        <input type="text" value="Player 1" minlength="1" maxlength="20" required id="player1">
+                        <br>
+                        <br>
+                        <h1>Wins: </h1><span class="wins" id="X">0</span>
+                    </div>
+                    <button class="button" id="start">Start</button>
+                    <button class="button" id="stop">Stop</button>
+                    <button class="button" id="restart">Restart</button>
+                    <div class="player">
+                        <input type="text" value="Player 2" minlength="1" maxlength="20" required id="player2">
+                        <br>
+                        <br>
+                        <h1>Wins: </h1><span id="O" class="wins">0</span>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>
