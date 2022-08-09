@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <div class="modal">
+    </div>
+    <div class="modal-content" id="modal1">
+        <span id="modal">&times;</span>
+        <input type="text" placeholder="Project name" maxlength="40" id="projectName" required>
+        <button>Add</button>
+      </div>
+      <div class="modal-content" id="modal2">
+        <span id="modal">&times;</span>
+        <form action="">
+            <h2>Add Task</h2>
+            <input type="text" placeholder="Task name" maxlength="40" id="title" required>
+            <textarea name="description" id="description" cols="40" rows="3" placeholder="Description" ></textarea>
+            <input type="date" id="date" >
+            <input type="number" max="2" min="0" value="0" id="priority" required>
+            <input type="submit" value="Submit" id="submit">
+
+            
+        </form>
+        
+      </div>
+        <div class="container">
+            <div class="header">
+                <div class="header-text">Todo List</div>
+            </div>
+            <div class="main">
+                <div class="sidebar">
+                    <h1>Your Projects</h1>
+                    <div class="project">
+                        Default
+                    </div>
+                    <button id="projectBtn">Add Project</button>
+                </div>
+                <div class="tasks">
+                      <!-- Modal content -->
+  
+                    <h1>Tasks</h1>
+                    <div class="tasksList">
+                        <div class="task">Test</div>
+                    </div>
+                    <button id="taskBtn">Add task</button>
+                </div>
+            </div>
+        </div>
+    
+    
+</body>
+<script src="main.js"></script>
+</html>

@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+}
+
+
+.container {
+    background: #0f172a;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+/* Header */
+.header {
+    height: 90px;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+}
+
+.header-text {
+    font-size: 60px;
+    font-weight: bold;
+    margin-left: 10rem;
+}
+
+/* Main */
+.main {
+    display: flex;
+    gap: 400px;
+    margin-top: 40px;
+    
+}
+
+/* Sidebar */
+.sidebar {
+    margin-left: 4rem;
+    background: #1e293b;
+    min-height: 60vh;
+    width: 15vw;
+    /* border: 4px solid #0f172a; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.project {
+font-size: 24px;
+border-bottom: 1px solid black;;
+width: 100%;
+text-align: center;
+cursor: pointer;
+
+}
+
+
+
+/* Tasks */
+.tasks{
+    background: #1e293b;
+    min-width: 40vw;
+    padding-left: 40px;
+}
+
+.task {
+    min-height: 40px;
+    border: 1px solid black;
+}
+
+button {
+    background: white;
+    height: 35px;
+    border-radius: 22px;
+    width: 150px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+button:hover, button:focus {
+    background: rgb(236, 233, 233);
+}
+
+.modal {
+    display: none; 
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  .modal-content {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    top: 30%;
+    left: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   border-radius: 12px;
+    background-color: #1e293b;
+    
+ 
+
+  }
+
+  #modal1 {
+    min-height: 10px;
+    padding: 15px;
+   
+    
+  }
+
+  .modal-content  button { 
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  #modal1 input {
+    height: 25px;
+    width: 310px;
+    margin: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    
+  }
+
+  #modal2 input {
+    height: 25px;
+    width: 310px;
+    
+  }
+
+  #modal {
+    color: #1e293b;
+  }
+
+  
+
+  #modal2 form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+
+  }
+
+  #modal2 form h2 {
+    margin: 0;
+    color: white;
+  }
+
+  #submit {
+    min-height: 30px;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  #submit:hover, #submit:focus {
+    background: rgb(226, 221, 221);
+    cursor: pointer;
+  }
+
+  .modal-content{
+    display: none;
+  }
