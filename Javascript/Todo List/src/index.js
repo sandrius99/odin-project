@@ -1,70 +1,75 @@
-let projects = [];
-let selectedProject = 0;
+import {selectedProject, createProject, projectFunctions, createTask} from './project.js';
+import {configureModal} from "./modal.js" 
+
+configureModal()
+
+// Create Projects array and make default project if no existent in local storage
+if(!localStorage.getItem("Projects")){
+    let projects = [];
+    projects.push(createProject("Default"));
+    localStorage.setItem("Projects", JSON.stringify(projects))
+}
 
 const addProjectButton = document.getElementById('addProjectBtn');
 const addTaskButton = document.getElementById('addTaskBtn');
 
-
 addProjectButton.addEventListener('click', () => {
-    const projectName = document.getElementById('projectName').value;
-    console.log(projectName);
+    
+    let projects = JSON.parse(localStorage.getItem("Projects"));
+    console.log( JSON.parse(localStorage.getItem("Projects")))
+    const projectName = document.getElementById('projectName');
     if(projectName === undefined || projectName === '')
         return;
 
-    projects.push(project(projectName));
+     if(localStorage.getItem('projects'))
+         projects = JSON.parse(localStorage.getItem('projects'));
+        
+    
+    projects.push(createProject(projectName.value));
+
+    localStorage.setItem('Projects', JSON.stringify(projects));
+   
     document.querySelector('.modal').click();
-    updateProjectDiv();
+    updateProjectDiv(projects);
+    nulifyForm(projectName)
+    document.querySelector('.tasksList').innerHTML = "";
 });
 
 addTaskButton.addEventListener('click', e => {
     e.preventDefault();
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const date = document.getElementById('date').value;
-    const priority = document.getElementById('priority').value;
-    projects[selectedProject].addTask(title, description, date, priority)
+    let projects = JSON.parse(localStorage.getItem('Projects'));
+    projects.forEach(project => {
+        Object.assign(project, project, projectFunctions);
+       });
+
+    let title = document.getElementById('title');
+    if(title.value === undefined || title.value === '')
+       return;
+    let description = document.getElementById('description');
+    let date = document.getElementById('date');
+    let priority = document.getElementById('priority');
+    projects[selectedProject].addTask(createTask(title.value, description.value, date.value, priority.value, projects[selectedProject].tasks.length));
+    localStorage.setItem("Projects", JSON.stringify(projects));
     document.querySelector('.modal').click();
     updateTasksDiv();
+    nulifyForm(title, description, date);
+    
 
     
 });
 
+function nulifyForm(...args) {
+    args.forEach(arg => {arg.value = ""});
 
-const project = (name) => {
-    const getName = () => {
-        return name;
-    };
-    let tasksId = 0;
-
-    let tasks = [];
-
-    const addTask = (title, description, date, priority) => {
-        tasks.push(task(title, description, date, priority, tasksId));
-        tasksId++;
-    }
-
-    const getTasks = () => {
-        return tasks;
-    }
-
-    const removeTask = (id) => {
-        tasks = tasks.filter((task, index) => {if(index !== id) return task});
-    }
-    
-
-
-
-    return {getName, addTask, getTasks, removeTask};
 }
-
-const task = (title, description, date, priority, id) => {
-    return {title, description, date, priority, id}
-}
-
-projects.push(project('Default'));
 
 const updateTasksDiv = () => {
-    const tasks = projects[selectedProject].getTasks();
+   let projects =  JSON.parse(localStorage.getItem('Projects'));
+   projects.forEach(project => {
+    Object.assign(project, project, projectFunctions);
+   });
+    const tasks = projects[selectedProject].tasks;
+
     const tasksListDiv = document.querySelector(".tasksList");
     tasksListDiv.innerHTML = "";
     tasks.forEach((task, index) => {   
@@ -81,28 +86,29 @@ const updateTasksDiv = () => {
         checkbox.addEventListener('click', () => {
             taskDiv.style.display = "none";
             projects[selectedProject].removeTask(index);
+            localStorage.setItem("Projects", JSON.stringify(projects));
            
 
         });
 
         const taskTitleDiv = document.createElement('div');
         taskTitleDiv.classList.add('taskTitle');
-        taskTitleDiv.innerText = task.title;
+        taskTitleDiv.innerText = task.title.title;
         checkAndTitleDiv.appendChild(checkbox);
         checkAndTitleDiv.appendChild(taskTitleDiv);
 
         const dateDiv = document.createElement('div');
         dateDiv.classList.add("date");
-        dateDiv.innerText = task.date;
+        dateDiv.innerText = task.title.date;
         const descriptionDiv = document.createElement('div');
         descriptionDiv.classList.add("description");
-        descriptionDiv.innerText = task.description;
+        descriptionDiv.innerText = task.title.description;
         descriptionDiv.style.display = "none";
 
         // Check task priority and color div border accordingly
-        if(task.priority === "medium")
+        if(task.title.priority === "medium")
             taskDiv.style.borderBottom = "1px solid yellow";
-        else if(task.priority === "high")
+        else if(task.title.priority === "high")
             taskDiv.style.borderBottom = "1px solid red";
 
         // Display/hide task desription after every taskDiv click
@@ -120,7 +126,7 @@ const updateTasksDiv = () => {
     });
 }
 
-const updateProjectDiv = () => {
+const updateProjectDiv = (projects) => {
     
     // document.querySelector('.selected').classList.remove('selected');
     const projectsDiv = document.querySelector('.projects');
@@ -129,13 +135,14 @@ const updateProjectDiv = () => {
         let div = document.createElement('div');
         div.classList.add("project");
         div.id = "p"+index;
-        div.innerText = project.getName();
+        div.innerText = project.name;
         div.addEventListener('click', e => {
             document.querySelectorAll(".project")[selectedProject].classList.remove("selected");
             div.classList.add("selected");
             selectedProject = index;
             updateTasksDiv()
         })
+   
         projectsDiv.appendChild(div);
     });
     // Display last entered project as selected
@@ -143,40 +150,18 @@ const updateProjectDiv = () => {
     selectedProject = projects.length - 1;
 }
 
+window.addEventListener('load', e => {
+    document.querySelectorAll('.project')[0].click()
+})
+updateProjectDiv(JSON.parse(localStorage.getItem("Projects")));
 
 
 
 
-const configureModal = () => {
-    const modal = document.querySelector(".modal")
-    const modalContent1 = document.getElementById("modal1");
-    const modalContent2 = document.getElementById("modal2");
-    const projectButton = document.getElementById("projectBtn");
-    const taskButton = document.getElementById("taskBtn");
-
-    projectButton.addEventListener('click', e => {
-        e.preventDefault();
-        console.log(e)
-        modal.style.display = "block";
-        modalContent1.style.display = "block";
-    });
-
-    taskButton.addEventListener('click', e => {
-        e.preventDefault();
-        modal.style.display = "block";
-        modalContent2.style.display = "block";
-    });
-    
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modalContent1.style.display = "none";
-      modalContent2.style.display = "none";
-      modal.style.display = "none";
-    }
-  }
-}
 
 
 
-configureModal()
+
+
+
+
